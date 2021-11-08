@@ -4,15 +4,27 @@ namespace Calculator
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             PrintWelcomeMessage();
             bool performCalculations = true;
             while (performCalculations)
             {
-                PerformOneCalculation();
-                performCalculations = AskToContinue();
+                int option = GetMenuChoice();
                 Console.Clear();
+                switch(option)
+                {
+                    case 0:
+                        performCalculations = false;
+                        break;
+                    case 1:
+                        PerformNumericCalculation();
+                        break;
+                    case 2:
+                        PerformDateCalculation();
+                        break;
+                }
             }
 
         }
@@ -23,7 +35,19 @@ namespace Calculator
             Console.WriteLine("==========================");
         }
 
-        public static void PerformOneCalculation()
+        public static int GetMenuChoice()
+        {
+            string menuString = "\nWhich calculator mode do you want?\n"
+                + "\t1) Numbers\n\t2) Dates\n(Press 0 to exit)";
+            int userInput;
+            do
+            {
+                userInput = GetIntInput(menuString);
+            } while (userInput < 0 && userInput > 2);
+            return userInput;
+        }
+
+        public static void PerformNumericCalculation()
         {
             string chosenOperator = GetOperator();
             int[] values = GetValues(chosenOperator);
@@ -60,6 +84,15 @@ namespace Calculator
             }
 
             Console.WriteLine("The result is {0}", output);
+        }
+
+        public static void PerformDateCalculation()
+        {
+            DateTime userDate = GetDateInput("Please enter a date: ");
+            int daysToAdd = GetIntInput("Please enter the number of days to add: ");
+            DateTime result = userDate.AddDays(daysToAdd);
+            Console.WriteLine("The result is: {0}", result);
+
         }
 
         public static string GetOperator()
@@ -99,18 +132,6 @@ namespace Calculator
             return values;
         }
 
-        public static bool AskToContinue()
-        {
-            Console.WriteLine("Would you like to perform another calculation? (Y/N)");
-            String answer = Console.ReadLine();
-            while (answer != "Y" && answer != "N")
-            {
-                Console.WriteLine("Enter a valid response (Y/N)");
-                answer = Console.ReadLine();
-            }
-            return answer == "Y";
-        }
-
         public static int GetIntInput(string message)
         {
             int output = 0;
@@ -136,6 +157,18 @@ namespace Calculator
                 }
             }
             return value;
+        }
+
+        public static DateTime GetDateInput(string message)
+        {
+            DateTime output = DateTime.Now;
+            bool valid = false;
+            while (!valid)
+            {
+                Console.WriteLine(message);
+                valid = DateTime.TryParse(Console.ReadLine(), out output);
+            }
+            return output;
         }
     }
 }
