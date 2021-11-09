@@ -20,6 +20,15 @@ namespace Calculator
 
         public static string GetOperator()
         {
+            string chosenOperator;
+            Console.WriteLine("Enter an operator (+, -, *, /): ");
+            chosenOperator = Console.ReadLine();
+            if (chosenOperator != "+" && chosenOperator != "-" && chosenOperator != "*" && chosenOperator != "/")
+            {
+                throw new ArgumentException("This isn't a recognised command.");
+            }
+            return chosenOperator;
+            /*
             string chosenOperator = "";
             while (chosenOperator != "+" && chosenOperator != "-" && chosenOperator != "*" && chosenOperator != "/")
             {
@@ -27,6 +36,7 @@ namespace Calculator
                 chosenOperator = Console.ReadLine();
             }
             return chosenOperator;
+            */
         }
 
         public static int? GetIntInput(string message)

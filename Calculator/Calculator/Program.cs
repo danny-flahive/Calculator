@@ -22,7 +22,13 @@ namespace Calculator
                         continueCalculations = false;
                         break;
                     case 1:
-                        numberCalculator.PerformCalculation();
+                        try
+                        {
+                            numberCalculator.PerformCalculation();
+                        } catch (ArgumentException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
                         break;
                     case 2:
                         dateCalculator.PerformCalculation();
