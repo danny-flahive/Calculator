@@ -4,6 +4,12 @@ namespace Calculator
 {
     class Program
     {
+        enum MenuOptions
+        {
+            Exit,
+            NumberCalculator,
+            DateCalculator
+        }
 
         static void Main(string[] args)
         {
@@ -14,14 +20,15 @@ namespace Calculator
             bool continueCalculations = true;
             while (continueCalculations)
             {
-                int? option = InputParser.GetMenuChoice();
+                MenuOptions? option = (MenuOptions?) InputParser.GetMenuChoice();
                 Console.Clear();
                 switch(option)
                 {
-                    case 0:
+                    case null:
+                    case MenuOptions.Exit:
                         continueCalculations = false;
                         break;
-                    case 1:
+                    case MenuOptions.NumberCalculator:
                         try
                         {
                             numberCalculator.PerformCalculation();
@@ -30,11 +37,8 @@ namespace Calculator
                             Console.WriteLine(e.Message);
                         }
                         break;
-                    case 2:
+                    case MenuOptions.DateCalculator:
                         dateCalculator.PerformCalculation();
-                        break;
-                    case null:
-                        continueCalculations = false;
                         break;
                 }
             }
