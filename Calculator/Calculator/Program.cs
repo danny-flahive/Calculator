@@ -8,8 +8,9 @@ namespace Calculator
         static void Main(string[] args)
         {
             PrintWelcomeMessage();
-            NumberCalculator numberCalculator = new NumberCalculator();
-            DateCalculator dateCalculator = new DateCalculator();
+            Logger logger = new Logger();
+            NumberCalculator numberCalculator = new NumberCalculator(logger);
+            DateCalculator dateCalculator = new DateCalculator(logger);
             bool continueCalculations = true;
             while (continueCalculations)
             {
