@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Calculator
 {
@@ -40,31 +41,16 @@ namespace Calculator
             switch (operation)
             {
                 case ("+"):
-                    foreach (int value in values)
-                    {
-                        output += value;
-                    }
+                    output = values.Sum();
                     break;
                 case ("-"):
-                    output = values[0];
-                    for (int i = 1; i < values.Length; i++)
-                    {
-                        output -= values[i];
-                    }
+                    output = values.Skip(1).Aggregate(values[0], (current, next) => current - next);
                     break;
                 case ("*"):
-                    output = 1;
-                    foreach (int value in values)
-                    {
-                        output *= value;
-                    }
+                    output = values.Aggregate(1, (current, next) => current * next);
                     break;
                 case ("/"):
-                    output = values[0];
-                    for (int i = 1; i < values.Length; i++)
-                    {
-                        output /= values[i];
-                    }
+                    output = values.Skip(1).Aggregate(values[0], (current, next) => current / next);
                     break;
             }
             return output;
