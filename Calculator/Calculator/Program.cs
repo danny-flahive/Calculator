@@ -14,7 +14,7 @@ namespace Calculator
             bool continueCalculations = true;
             while (continueCalculations)
             {
-                int option = InputParser.GetMenuChoice();
+                int? option = InputParser.GetMenuChoice();
                 Console.Clear();
                 switch(option)
                 {
@@ -26,6 +26,9 @@ namespace Calculator
                         break;
                     case 2:
                         dateCalculator.PerformCalculation();
+                        break;
+                    case null:
+                        continueCalculations = false;
                         break;
                 }
             }

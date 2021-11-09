@@ -6,11 +6,11 @@ namespace Calculator
 {
     class InputParser
     {
-        public static int GetMenuChoice()
+        public static int? GetMenuChoice()
         {
             string menuString = "\nWhich calculator mode do you want?\n"
-                + "\t1) Numbers\n\t2) Dates\n(Press 0 to exit)";
-            int userInput;
+                + "\t1) Numbers\n\t2) Dates\n(Press 0 to exit)\n";
+            int? userInput;
             do
             {
                 userInput = GetIntInput(menuString);
@@ -29,21 +29,32 @@ namespace Calculator
             return chosenOperator;
         }
 
-        public static int GetIntInput(string message)
+        public static int? GetIntInput(string message)
         {
-            int output = 0;
+            int? output = 0;
             bool valid = false;
             while (!valid)
             {
-                Console.WriteLine(message);
-                valid = int.TryParse(Console.ReadLine(), out output);
+                Console.Write(message);
+                string input = Console.ReadLine();
+                if (input.Trim() == "")
+                {
+                    output = null;
+                    valid = true;
+                }
+                else
+                {
+                    int temp;
+                    valid = int.TryParse(input, out temp);
+                    output = temp;
+                }
             }
             return output;
         }
 
-        public static int GetValidDivisor(string message)
+        public static int? GetValidDivisor(string message)
         {
-            int value = 0;
+            int? value = 0;
             bool divByZero = true;
             while (divByZero)
             {
@@ -56,28 +67,22 @@ namespace Calculator
             return value;
         }
 
-        public static int[] GetMultipleValues(string userOperator)
+        public static List<int> GetMultipleValues(string userOperator)
         {
-            int numberOfInputs;
-            do
+            List<int> values = new List<int>();
+            int? value = 0;
+            while (value.HasValue)
             {
-                numberOfInputs = GetIntInput("How many integers would you like to enter? (2 or more) ");
-            } while (numberOfInputs < 2);
-            int[] values = new int[numberOfInputs];
-            for (int i = 0; i < numberOfInputs; i++)
-            {
-
-                int value;
-                //Prevent divide by zero errors
-                if (userOperator == "/" && i > 0)
+                if (userOperator == "/" && values.Count > 1)
                 {
-                    value = GetValidDivisor(String.Format("Enter number {0}: ", i + 1));
+                    value = GetValidDivisor("Enter the next number: ");
                 }
                 else
                 {
-                    value = GetIntInput(String.Format("Enter number {0}: ", i + 1));
+                    value = GetIntInput("Enter the next number: ");
                 }
-                values[i] = value;
+                if (value.HasValue)
+                    values.Add((int) value);
             }
             return values;
         }

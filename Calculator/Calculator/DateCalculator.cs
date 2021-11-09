@@ -15,7 +15,7 @@ namespace Calculator
         public void PerformCalculation()
         {
             DateTime userDate = InputParser.GetDateInput("Please enter a date: ");
-            int daysToAdd = InputParser.GetIntInput("Please enter the number of days to add: ");
+            int daysToAdd = (int) InputParser.GetIntInput("Please enter the number of days to add: ");
             DateTime result = userDate.AddDays(daysToAdd);
             LogCalculation(userDate, daysToAdd, result);
             Console.WriteLine("The result is: {0}", result.ToShortDateString());
