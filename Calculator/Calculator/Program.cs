@@ -1,9 +1,10 @@
 ﻿using System;
-
+using System.Collections.Generic;
 namespace Calculator
 {
     class Program
     {
+        //TODO: ICalculator Interface
         enum MenuOptions
         {
             Exit,

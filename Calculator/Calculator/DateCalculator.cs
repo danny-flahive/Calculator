@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Calculator
 {
-    class DateCalculator
+    class DateCalculator : ICalculator
     {
         private Logger logger;
 
@@ -18,12 +18,13 @@ namespace Calculator
             int daysToAdd = (int) InputParser.GetIntInput("Please enter the number of days to add: ");
             DateTime result = userDate.AddDays(daysToAdd);
             LogCalculation(userDate, daysToAdd, result);
-            Console.WriteLine("The result is: {0}", result.ToShortDateString());
+            Console.WriteLine($"The result is: {result.ToShortDateString()}");
         }
 
         private void LogCalculation(DateTime userDate, int daysToAdd, DateTime result)
         {
-            logger.Log(String.Format("{0} + {1} days = {2}", userDate.ToShortDateString(), daysToAdd, result.ToShortDateString()));
+            string calculation = $"{userDate.ToShortDateString()} + {daysToAdd} = {result.ToShortDateString()}";
+            logger.Log(calculation);
         }
     }
 }

@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Calculator
 {
-    class NumberCalculator
+    class NumberCalculator : ICalculator
     {
-        Logger logger;
+        private Logger logger;
 
         public NumberCalculator(Logger logger)
         {
@@ -20,19 +20,13 @@ namespace Calculator
             List<int> values = InputParser.GetMultipleValues(chosenOperator);
             int output = CalculateOutput(values, chosenOperator);
             LogCalculation(chosenOperator, values, output);
-            Console.WriteLine("The result is {0}", output);
+            Console.WriteLine($"The result is {output}");
         }
 
         private void LogCalculation(string chosenOperator, List<int> values, int output)
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (int value in values)
-            {
-                stringBuilder.Append(string.Format("{0} {1} ", value, chosenOperator));
-            }
-            stringBuilder.Remove(stringBuilder.Length - 2, 2);
-            stringBuilder.Append(string.Format("= {0}", output));
-            logger.Log(stringBuilder.ToString());
+            string calculation = $"{string.Join((" " + chosenOperator + " "), values)} = {output}";
+            logger.Log(calculation);
         }
 
         private int CalculateOutput(List<int> values, string operation)
