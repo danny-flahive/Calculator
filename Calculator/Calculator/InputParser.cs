@@ -21,22 +21,13 @@ namespace Calculator
         public static string GetOperator()
         {
             string chosenOperator;
-            Console.WriteLine("Enter an operator (+, -, *, /): ");
+            Console.Write("Enter an operator (+, -, *, /): ");
             chosenOperator = Console.ReadLine();
             if (chosenOperator != "+" && chosenOperator != "-" && chosenOperator != "*" && chosenOperator != "/")
             {
-                throw new ArgumentException("This isn't a recognised command.");
+                throw new ArgumentException($"{chosenOperator} isn't a recognised operator.");
             }
             return chosenOperator;
-            /*
-            string chosenOperator = "";
-            while (chosenOperator != "+" && chosenOperator != "-" && chosenOperator != "*" && chosenOperator != "/")
-            {
-                Console.Write("Enter an operator (+, -, *, /): ");
-                chosenOperator = Console.ReadLine();
-            }
-            return chosenOperator;
-            */
         }
 
         public static int? GetIntInput(string message)

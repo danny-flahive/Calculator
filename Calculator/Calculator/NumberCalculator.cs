@@ -35,16 +35,16 @@ namespace Calculator
             switch (operation)
             {
                 case ("+"):
-                    output = values.Sum();
+                    output = checked(values.Sum());
                     break;
                 case ("-"):
-                    output = values.Skip(1).Aggregate(values[0], (current, next) => current - next);
+                    output = checked(values.Skip(1).Aggregate(values[0], (current, next) => current - next));
                     break;
                 case ("*"):
-                    output = values.Aggregate(1, (current, next) => current * next);
+                    output = checked(values.Aggregate(1, (current, next) => current * next));
                     break;
                 case ("/"):
-                    output = values.Skip(1).Aggregate(values[0], (current, next) => current / next);
+                    output = checked(values.Skip(1).Aggregate(values[0], (current, next) => current / next));
                     break;
             }
             return output;

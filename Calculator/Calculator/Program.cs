@@ -4,7 +4,6 @@ namespace Calculator
 {
     class Program
     {
-        //TODO: ICalculator Interface
         enum MenuOptions
         {
             Exit,
@@ -36,6 +35,9 @@ namespace Calculator
                         } catch (ArgumentException e)
                         {
                             Console.WriteLine(e.Message);
+                        } catch (OverflowException e)
+                        {
+                            Console.WriteLine("Couldn't compute! This calculation resulted in an Overflow or Underflow error.");
                         }
                         break;
                     case MenuOptions.DateCalculator:
